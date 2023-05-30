@@ -5,6 +5,7 @@
 // Chain IDs: https://chainlist.org/?testnets=true
 
 require("@chainlink/env-enc").config()
+require("dotenv").config()
 
 const DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS = 2
 const SHARED_DON_PUBLIC_KEY =

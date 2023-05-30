@@ -3,7 +3,11 @@ require("hardhat-contract-sizer")
 require("@openzeppelin/hardhat-upgrades")
 require("./tasks")
 require("@chainlink/env-enc").config()
+require("hardhat-deploy")
 const { networks } = require("./networks")
+
+//const PRIVATE_KEY = process.env.PRIVATE_KEY || "0xkey";
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "0xkey"
 
 // Enable gas reporting (optional)
 const REPORT_GAS = process.env.REPORT_GAS?.toLowerCase() === "true" ? true : false
@@ -56,28 +60,28 @@ module.exports = {
     // npx hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
     // to get exact network names: npx hardhat verify --list-networks
     apiKey: {
-      sepolia: networks.ethereumSepolia.verifyApiKey,
-      polygonMumbai: networks.polygonMumbai.verifyApiKey,
-      avalancheFujiTestnet: networks.avalancheFuji.verifyApiKey,
+      sepolia: ETHERSCAN_API_KEY,
+      polygonMumbai: ETHERSCAN_API_KEY,
+      avalancheFujiTestnet: ETHERSCAN_API_KEY,
     },
-  },
-  gasReporter: {
-    enabled: REPORT_GAS,
-    currency: "USD",
-    outputFile: "gas-report.txt",
-    noColors: true,
-  },
-  contractSizer: {
-    runOnCompile: false,
-    only: ["FunctionsConsumer", "AutomatedFunctionsConsumer", "FunctionsBillingRegistry"],
-  },
-  paths: {
-    sources: "./contracts",
-    tests: "./test",
-    cache: "./build/cache",
-    artifacts: "./build/artifacts",
-  },
-  mocha: {
-    timeout: 200000, // 200 seconds max for running tests
+    gasReporter: {
+      enabled: REPORT_GAS,
+      currency: "USD",
+      outputFile: "gas-report.txt",
+      noColors: true,
+    },
+    contractSizer: {
+      runOnCompile: false,
+      only: ["FunctionsConsumer", "AutomatedFunctionsConsumer", "FunctionsBillingRegistry"],
+    },
+    paths: {
+      sources: "./contracts",
+      tests: "./test",
+      cache: "./build/cache",
+      artifacts: "./build/artifacts",
+    },
+    mocha: {
+      timeout: 200000, // 200 seconds max for running tests
+    },
   },
 }
