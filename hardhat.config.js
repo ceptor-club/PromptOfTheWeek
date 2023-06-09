@@ -22,6 +22,12 @@ const SOLC_SETTINGS = {
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   defaultNetwork: "hardhat",
+  namedAccounts: {
+    deployer: {
+      default: 0,
+      player: 1,
+    },
+  },
   solidity: {
     compilers: [
       {
